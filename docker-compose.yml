@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  mysql-standalone3:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=testuser
+      - MYSQL_PASSWORD=testuser@123
+    networks: 
+      - back-end
+
+  spring-docker-practice-app:
+    image: spring-docker-practice-app
+    build:
+      context: ./spring-docker-practice
+      dockerfile: Dockerfile
+    environment:
+      - DB_SERVER=mysql-standalone3
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=testuser
+      - MYSQL_PASSWORD=testuser@123
+    ports:
+      - 8082:8080
+    depends_on:
+      - mysql-standalone3
+    networks: 
+      - back-end
+
+  angular-docker-practice-app:
+    image: angular-docker-practice-app
+    build:
+      context: ./angular-docker-practice
+      dockerfile: Dockerfile
+    environment:
+      - API_URL=http://localhost:8082
+    ports:
+      - 8182:80/tcp
+    networks: 
+      - front-end
+
+networks: 
+  front-end:
+  back-end:
+
