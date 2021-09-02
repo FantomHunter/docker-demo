@@ -1,0 +1,6 @@
+[submodule "spring-docker-practice"]
+	path = spring-docker-practice
+	url = https://github.com/FantomHunter/spring-docker-practice.git
+[submodule "angular-docker-practice"]
+	path = angular-docker-practice
+	url = https://github.com/FantomHunter/angular-docker-practice.git
